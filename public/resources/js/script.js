@@ -1,5 +1,5 @@
 
-function initialize(){
+function initialize() {
     var firebaseConfig = {
         apiKey: "AIzaSyD2uEODgvt4HrkOOjdqXoHAQDMDN1x_L8M",
         authDomain: "resto-67dd2.firebaseapp.com",
@@ -10,9 +10,10 @@ function initialize(){
         appId: "1:368135048175:web:25bd1cac17653598e6841a",
         measurementId: "G-45ZZW8PEF9"
     };
-    
+
     // Initialize Firebase
-       firebase.initializeApp(firebaseConfig);
-       var database = firebase.database();
-       
-    };
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
+};
+
