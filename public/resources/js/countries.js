@@ -1,6 +1,6 @@
 // ALL COUNTRY NAMES WITH THEIR ISO CODE
 let country_list = [];
-async function initialize() {
+async function initialize( ) {
     const firebaseConfig = {
         apiKey: "AIzaSyD2uEODgvt4HrkOOjdqXoHAQDMDN1x_L8M",
         authDomain: "resto-67dd2.firebaseapp.com",
