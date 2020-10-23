@@ -16,19 +16,25 @@ let app_data = [],
   deaths = [],
   formatedDates = [];
 
-// Récupération code pays
-let country_code = geoplugin_countryCode();
-let user_country;
-country_list.forEach((country) => {
-  if (country.code == country_code) {
-    user_country = country.name;
-  }
-});
+  let country_code;
+  let user_country;
+
+function getUserCountry(){// Récupération code pays
+  country_code = geoplugin_countryCode();
+  console.log('country code: '+country_code);
+  country_list.forEach((country) => {
+    if (country.code == country_code) {
+      user_country = country.name;
+    }
+  });}
+
 
 
 /*                     FETCH API                  */
 
-function fetchData(country) {
+async function fetchData(country) {
+  
+  console.log("totocountry", country)
   user_country = country;
   country_name_element.innerHTML = "Loading...";
 
@@ -44,48 +50,50 @@ function fetchData(country) {
   };
 
   const api_fetch = async (country) => {
-    await fetch(
-      "https://api.covid19api.com/total/country/" + country + "/status/confirmed", requestOptions)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        data.forEach((entry) => {
+    
+    console.log('api_fetch');
+    
+    const request = await fetch(  
+      "https://api.covid19api.com/total/country/" + country + "/status/confirmed", requestOptions);
+      const data = await request.json();
+
+      console.log("toto", data)
+      console.log(country_list);
+      data.forEach((entry) => {
           dates.push(entry.Date);
           cases_list.push(entry.Cases);
         });
-      });
+      
 
-    await fetch(
-      "https://api.covid19api.com/total/country/" + country + "/status/recovered", requestOptions)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        data.forEach((entry) => {
-          recovered_list.push(entry.Cases);
-        });
+    const requestRecovered = await fetch(
+      "https://api.covid19api.com/total/country/" + country + "/status/recovered", requestOptions);
+    const dataRecovered= await requestRecovered.json(); 
+    dataRecovered.forEach((entry) => {
+        recovered_list.push(entry.Cases);
       });
+      
 
-    await fetch(
-      "https://api.covid19api.com/total/country/" + country + "/status/deaths", requestOptions)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        data.forEach((entry) => {
+     const requestDead = await fetch(
+      "https://api.covid19api.com/total/country/" + country + "/status/deaths", requestOptions);
+      dataDead= await requestDead.json();
+      dataDead.forEach((entry) => {
           deaths_list.push(entry.Cases);
         });
-      });
 
     updateUI();
   };
+      
 
   api_fetch(country);
+};
+
+
+// fetchData(user_country);
+async function callFunctions(){
+  await initialize();
+  getUserCountry();
+  await fetchData(user_country);
 }
-
-fetchData(user_country);
-
 // Mise à jours des données
 function updateUI() {
   updateStats();
