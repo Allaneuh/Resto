@@ -1,7 +1,7 @@
 // ALL COUNTRY NAMES WITH THEIR ISO CODE
 let country_list = [];
 async function initialize() {
-    var firebaseConfig = {
+    const firebaseConfig = {
         apiKey: "AIzaSyD2uEODgvt4HrkOOjdqXoHAQDMDN1x_L8M",
         authDomain: "resto-67dd2.firebaseapp.com",
         databaseURL: "https://resto-67dd2.firebaseio.com",
@@ -14,7 +14,7 @@ async function initialize() {
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    var database = firebase.firestore();
+    const database = firebase.firestore();
     const snapshot= await database.collection('countries').get();
     country_list=snapshot.docs.map(doc =>doc.data());
     const snap = await database.collection('countries').get();

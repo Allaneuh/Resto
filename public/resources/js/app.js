@@ -44,7 +44,7 @@ async function fetchData(country) {
     (dates = []),
     (formatedDates = []);
 
-  var requestOptions = {
+  const requestOptions = {
     method: "GET",
     redirect: "follow",
   };
