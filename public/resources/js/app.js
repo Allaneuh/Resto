@@ -20,7 +20,7 @@ let app_data = [],
   let user_country;
 
 function getUserCountry(){// Récupération code pays
-  country_code = geoplugin_countryCode();
+  
   console.log('country code: '+country_code);
   country_list.forEach((country) => {
     if (country.code == country_code) {
@@ -34,7 +34,7 @@ function getUserCountry(){// Récupération code pays
 
 async function fetchData(country) {
   
-  console.log("totocountry", country)
+  
   user_country = country;
   country_name_element.innerHTML = "Loading...";
 
@@ -57,7 +57,7 @@ async function fetchData(country) {
       "https://api.covid19api.com/total/country/" + country + "/status/confirmed", requestOptions);
       const data = await request.json();
 
-      console.log("toto", data)
+      
       console.log(country_list);
       data.forEach((entry) => {
           dates.push(entry.Date);
@@ -137,7 +137,7 @@ function axesLinearChart() {
     data: {
       datasets: [
         {
-          label: "Cases",
+          label: "Cas confirmés",
           data: cases_list,
           fill: false,
           borderColor: "#FFF",
@@ -145,15 +145,16 @@ function axesLinearChart() {
           borderWidth: 1,
         },
         {
-          label: "Recovered",
+          label: "Guéris",
           data: recovered_list,
           fill: false,
           borderColor: "#009688",
           backgroundColor: "#009688",
           borderWidth: 1,
+          fontColor: 'white'
         },
         {
-          label: "Deaths",
+          label: "Décès",
           data: deaths_list,
           fill: false,
           borderColor: "#f44336",
@@ -166,6 +167,25 @@ function axesLinearChart() {
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      legend: {
+      
+        labels:{
+          fontColor:'white'
+        }
+        
+      },
+      scales:{
+        yAxes: [{
+          ticks:{
+            fontColor: 'white'
+          }
+        }],
+        xAxes: [{
+          ticks:{
+           fontColor:'white' 
+          }
+        }],
+      }
     },
   });
 }
