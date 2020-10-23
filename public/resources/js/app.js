@@ -16,7 +16,7 @@ let app_data = [],
   deaths = [],
   formatedDates = [];
 
-  let country_code;
+  let country_code = 'FR';
   let user_country;
 
 function getUserCountry(){// Récupération code pays
